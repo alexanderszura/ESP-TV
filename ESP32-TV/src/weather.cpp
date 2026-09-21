@@ -1,37 +1,9 @@
-#include "network.h"
 #include <ArduinoJson.h>
+#include "network.h"
+#include "weather.h"
 
 // https://open-meteo.com/en/docs
 const char* WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast?latitude=44.2298&longitude=-76.481&current=temperature_2m,apparent_temperature,is_day,weather_code,relative_humidity_2m,precipitation,wind_speed_10m,wind_gusts_10m&timezone=auto&forecast_days=1";
-
-enum Weather {
-    SUNNY,
-    PARTIAL_CLOUD,
-    CLOUD,
-    DRIZZLE,
-    RAINY,
-    STORM,
-    SNOW,
-
-    UNKNOWN
-};
-
-struct WeatherData {
-    Weather weather;
-
-    const char* time;
-
-    float tempature;
-    float apparent_tempature;
-    uint8_t humidity;
-
-    bool is_day;
-
-    uint8_t precipitation;
-    
-    float wind_speed;
-    float wind_gusts;
-};
 
 Weather WMO_to_Weather(int code) {
     switch (code) {
@@ -102,8 +74,8 @@ WeatherData* fetch_current_weather() {
     
     data->time = api_data["time"];
 
-    data->tempature = api_data["temperature_2m"];
-    data->apparent_tempature = api_data["apparent_temperature"];
+    data->temperature = api_data["temperature_2m"];
+    data->apparent_temperature = api_data["apparent_temperature"];
 
     data->is_day = api_data["is_day"];
     

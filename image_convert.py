@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
                 file.write("\n\n")
 
-            file.write(f"const uint16_t* const {name}[] PROGMEM = " + "{\n")
+            file.write(f"const uint16_t* const {name.upper()}[] PROGMEM = " + "{\n")
 
             for i in range(len(images)):
                 file.write(f"\t{name}_{i}")

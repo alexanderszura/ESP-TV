@@ -10,6 +10,8 @@ bool connect(const char* ssid, const char* password) {
     WiFi.begin(ssid, password);
 
     for (int i = 0; i < 20; i++) {
+        Serial.println("Waiting on connection...");
+        
         delay(500);
         if (isConnected())
             return true;

@@ -34,7 +34,7 @@ void brightness(uint8_t brightness) {
     analogWrite(BACK_LIGHT_PIN, brightness);
 }
 
-void playAnimation(uint8_t* x, uint8_t* y, uint64_t* animation_frame, uint16_t* bitmaps[], uint8_t bitmap_length, uint32_t wait_time_ms) {
+void playAnimation(uint8_t* x, uint8_t* y, uint64_t* animation_frame, const uint16_t* const bitmaps[], uint8_t bitmap_length, uint32_t wait_time_ms) {
     if (!x || !y || !animation_frame || !bitmaps)
         return;
 
