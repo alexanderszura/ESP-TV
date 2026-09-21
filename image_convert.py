@@ -1,0 +1,1 @@
+# TODO: Create script to automatically convert all images in a directory to a bitmap, output to bitmaps.h file
