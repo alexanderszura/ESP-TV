@@ -23,11 +23,13 @@ def convert(path, scale=1):
             # Pack them into a single 16-bit integer
             rgb565 = (r_565 << 11) | (g_565 << 5) | b_565
 
-            output += f"0x{rgb565:04x}, "
-            
-            pixel_count += 1
-            if pixel_count % 16 == 0:
-                output += "\n\t"
+            output += f"0x{rgb565:04x}"
+
+            if x != img.width - 1 or y != img.height - 1:
+                output += ", "
+                pixel_count += 1
+                if pixel_count % 16 == 0:
+                    output += "\n\t"
 
     return output
 
@@ -61,21 +63,22 @@ if __name__ == "__main__":
             name = folder.name
 
             for i, image in enumerate(images):
-                output = "const unsigned char {name}_{index} [] PROGMEM = ".format(name=name, index=i)
+                output = "const uint16_t {name}_{index} [] PROGMEM = ".format(name=name, index=i)
                 output += "{\n\t"
                 
                 output += convert(image)
 
-                output += "};"
+                output += "\n};"
 
                 file.write(output)
 
                 file.write("\n\n")
 
-            file.write(f"const unsigned char* const {name}[] PROGMEM = " + "{\n")
+            file.write(f"const uint16_t* const {name}[] PROGMEM = " + "{\n")
 
             for i in range(len(images)):
                 file.write(f"\t{name}_{i}")
+
                 if i != len(images) - 1:
                     file.write(",\n")
 

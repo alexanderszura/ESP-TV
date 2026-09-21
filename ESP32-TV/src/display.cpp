@@ -13,6 +13,9 @@
 #define WIDTH_RES 240
 #define HEIGHT_RES 320
 
+#define IMAGE_WIDTH 40
+#define IMAGE_HEIGHT 40
+
 Adafruit_ST7789 display = Adafruit_ST7789(CS_PIN, DC_PIN, RES_PIN);
 
 void brightness(uint8_t brightness);
@@ -35,7 +38,7 @@ void playAnimation(uint8_t* x, uint8_t* y, uint64_t* animation_frame, uint16_t* 
     if (!x || !y || !animation_frame || !bitmaps)
         return;
 
-    display.drawRGBBitmap(*x, *y, bitmaps[*animation_frame % bitmap_length], IMAGE_WIDTH * SCALE_FACTOR, IMAGE_HEIGHT * SCALE_FACTOR);
+    display.drawRGBBitmap(*x, *y, bitmaps[*animation_frame % bitmap_length], IMAGE_WIDTH, IMAGE_HEIGHT);
 
     delay(wait_time_ms);
 }
