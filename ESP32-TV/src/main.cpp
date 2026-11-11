@@ -29,25 +29,32 @@ void loop() {
       continue;
     }
 
-    uint64_t frame = 0;
-    u_int64_t start_time = millis();
+    uint32_t frame = 0;
+    StormState storm;
+    uint32_t start_time = millis();
 
-    while (millis() - start_time < REFRESH_MIN * 60 * 1000) {
+    while (millis() - start_time < REFRESH_MIN * 60 * 1000UL) {
       switch (weather_data->weather) {
         case SUNNY:
+          playAnimation(0, 0, ANIM_SUNNY, &frame);
           break;
         case PARTIAL_CLOUD:
+          playAnimation(0, 0, ANIM_PARTIAL_CLOUD, &frame);
           break;
         case CLOUD:
+          playAnimation(0, 0, ANIM_CLOUD, &frame);
           break;
         case DRIZZLE:
+          playAnimation(0, 0, ANIM_DRIZZLE, &frame);
           break;
         case RAINY:
+          playAnimation(0, 0, ANIM_RAIN, &frame);
           break;
         case STORM:
-          playAnimation(0, 0, &frame, THUNDER, 2, 150);
+          playThunder(0, 0, ANIM_THUNDER, &storm);
           break;
         case SNOW:
+          playAnimation(0, 0, ANIM_SNOW, &frame);
           break;
 
         case UNKNOWN:
